@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import store from './redux';
+import { addArticle } from './modules/articles/actions';
+
+window.store = store;
+window.addArticle = addArticle;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
