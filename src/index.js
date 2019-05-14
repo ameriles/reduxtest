@@ -4,10 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './redux';
-import { addArticle } from './modules/articles/actions';
+import { addPost } from './modules/posts/actions';
 
 window.store = store;
-window.addArticle = addArticle;
+window.addPost = addPost;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
