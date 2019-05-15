@@ -1,3 +1,7 @@
+body {
+  font-family: sans-serif;
+}
+
 .container {
   display: flex;
   align-items: stretch;
@@ -5,4 +9,11 @@
 
 .half {
   width: 50%;
+}
+
+ul li button {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
 }

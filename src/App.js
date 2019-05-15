@@ -1,5 +1,5 @@
 import React from 'react';
-import Master from './components/Master'
+import Index from './components/Index'
 import Detail from './components/Detail'
 import './App.css';
 
@@ -32,12 +32,25 @@ class App extends React.Component {
     })
   }
 
+  onAddPost = () => {
+    const posts = this.state.posts;
+    const newId = posts.length + 1
+    posts.push({
+      id: newId,
+      title: 'Post Numero ' + newId,
+      content: 'Este es un post automático. #' + newId
+    })
+    this.setState({
+      posts
+    })
+  }
+
   render () {
     const {posts, selectedPost} = this.state; 
     return (
       <div className="container">
         <div className="half">
-          <Master posts={posts} onSelectPost={this.onSelectPost} />
+          <Index posts={posts} onSelectPost={this.onSelectPost} onAddPost={this.onAddPost} />
         </div>
         <div className="half">
           {
