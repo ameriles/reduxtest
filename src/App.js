@@ -3,54 +3,31 @@ import Index from './components/Index'
 import Detail from './components/Detail'
 import './App.css';
 
-const data = [{
-  id: 1,
-  title: 'Un Post Simple',
-  content: 'Un post simple bien cortito'
-}, {
-  id: 2,
-  title: 'Un Post Mas Largo',
-  content: 'Un post simple pero un poco mas largo. No tanto, pero mas largo'
-}, {
-  id: 3,
-  title: 'El ultimo post',
-  content: 'No hay mas posts después de este'
-}]
+import store from './redux/store';
 
 class App extends React.Component {
   constructor (props) {
     super(props);
+
+    // inicializamos con el store
     this.state = {
-      posts: data,
-      selectedPost: null
+      selectedPost: store.getState().selectedPost
     }
-  }
 
-  onSelectPost = (post) => () => {
-    this.setState({
-      selectedPost: post
-    })
-  }
-
-  onAddPost = () => {
-    const posts = this.state.posts;
-    const newId = posts.length + 1
-    posts.push({
-      id: newId,
-      title: 'Post Numero ' + newId,
-      content: 'Este es un post automático. #' + newId
-    })
-    this.setState({
-      posts
+    // nos suscribimos al store para escuchar por cambios en nuestro state 
+    store.subscribe(() => {
+      this.setState({
+        selectedPost: store.getState().selectedPost
+      })
     })
   }
 
   render () {
-    const {posts, selectedPost} = this.state; 
+    const {selectedPost} = this.state; 
     return (
       <div className="container">
         <div className="half">
-          <Index posts={posts} onSelectPost={this.onSelectPost} onAddPost={this.onAddPost} />
+          <Index />
         </div>
         <div className="half">
           {
@@ -58,7 +35,6 @@ class App extends React.Component {
               ? <Detail title={selectedPost.title} content={selectedPost.content} />
               : null
           }
-          
         </div>
       </div>
     );
