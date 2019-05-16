@@ -1,19 +1,25 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import postsReducer from '../modules/posts/reducer'
+
+
+const logger = store => next => action => {
+  console.log('dispatching', action);
+  const result = next(action);
+  console.log('next state', store.getState());
+  return result;
+}
 
 let enhancer;
 if (process.env.NODE_ENV === 'development') {
   const composeEnhancers =
     typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       : compose;
 
-  enhancer = composeEnhancers;
+  enhancer = composeEnhancers(applyMiddleware(logger));
 } else {
-  enhancer = compose;
+  enhancer = compose(applyMiddleware(logger));
 }
-
-console.log(process.env);
 
 const data = [{
     id: 1,
