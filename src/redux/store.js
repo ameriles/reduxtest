@@ -13,6 +13,8 @@ if (process.env.NODE_ENV === 'development') {
   enhancer = compose;
 }
 
+console.log(process.env);
+
 const data = [{
     id: 1,
     title: 'Un Post Simple',
